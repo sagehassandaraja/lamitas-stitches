@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-customers',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomersComponent implements OnInit {
 
-  constructor() { }
+
+  // tslint:disable-next-line:variable-name
+  constructor(private _formBuilder: FormBuilder) {}
 
   ngOnInit() {
   }
-
 }

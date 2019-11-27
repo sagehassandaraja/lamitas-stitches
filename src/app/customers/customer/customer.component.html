@@ -1,1 +1,126 @@
-<p>customer works!</p>
+<form [formGroup]="_customerService.customerForm" class="customer-form  m-auto">
+
+    <mat-horizontal-stepper linear >
+      <mat-step>
+          <ng-template matStepLabel>Fill out customer Biodata</ng-template>
+          <input formControlName="$key" type="hidden">
+          <mat-form-field>
+            <input matInput placeholder="Name" formControlName="name" required>
+          </mat-form-field>
+          <label>Gender</label>
+          <mat-radio-group aria-label="Select gender" formControlName="gender" >
+            <mat-radio-button *ngFor="let sex of gender" [value]="sex">
+              {{sex}}
+            </mat-radio-button>
+          </mat-radio-group>
+          <mat-form-field>
+            <input matInput placeholder="Location" formControlName="location">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Mobile Number" type="tel" #mobileNumber maxlength="10" formControlName="telNo">
+            <mat-icon aria-hidden="false" matPrefix>phone</mat-icon>
+            <mat-hint align="end">{{mobileNumber.value.length}} / 10</mat-hint>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [matDatepicker]="curDate" placeholder="Today's Date" disabled formControlName="currentDate">
+            <mat-datepicker-toggle matSuffix [for]="curDate"></mat-datepicker-toggle>
+            <mat-datepicker #curDate disabled="false"></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput [matDatepicker]="endDate" placeholder="Completion Date" disabled formControlName="completionDate">
+            <mat-datepicker-toggle matSuffix [for]="endDate"></mat-datepicker-toggle>
+            <mat-datepicker #endDate disabled="false"></mat-datepicker>
+          </mat-form-field>
+        <div>
+          <button mat-raised-button mat-button matStepperNext type="button">Next</button>
+        </div>
+      </mat-step>
+      <mat-step formGroupName="description">
+          <ng-template matStepLabel>Fill out Customer Material Description</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="style description" formControlName="designDescc">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Material Pic" formControlName="matPic">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Quantity" type="number" formControlName="matQty">
+          </mat-form-field>
+          <div formArrayName="accesories">
+            <div *ngFor="let item of matAccessoriesControls; let i=index" [formGroupName]="i">
+              <mat-form-field>
+               <input matInput placeholder="Material Type" formControlName="itemType">
+              </mat-form-field>
+              <mat-form-field>
+               <input matInput placeholder="Material Quantity" formControlName="itemQty">
+              </mat-form-field>
+              <mat-form-field>
+               <input matInput placeholder="Material Amount" formControlName="itemAmt">
+              </mat-form-field>
+            </div>
+          </div>
+          <button mat-raised-button mat-button (click)="_customerService.addAccessories()">Add Accessory</button>
+        <div>
+          <button mat-raised-button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step formGroupName="measurement">
+          <ng-template matStepLabel>Fill out Customer Measurement Details</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Bust size" formControlName="bust">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Wais size" formControlName="waist">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Hips size" type="number" formControlName="hips">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Shoulder size" formControlName="shoulder">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Top Length size" formControlName="topLength">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="skirt Length size" formControlName="skirtLength">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Sleeve Length size" formControlName="sleeveLength">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Full Length size" formControlName="fullLength">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="thighs size" formControlName="thighs">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Around Arm size" formControlName="arndArm">
+          </mat-form-field>
+        <div>
+          <button mat-raised-button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button mat-button matStepperNext>Next</button>
+        </div>
+      </mat-step>
+      <mat-step formGroupName="bills">
+          <ng-template matStepLabel labelPosition="bottom">Fill out Customer Bills Detail</ng-template>
+          <mat-form-field>
+            <input matInput placeholder="Total Cost" type="number" formControlName="totalAmt">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Deposits" type="number" formControlName="deposits">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput placeholder="Total Deposits" type="number" formControlName="totalDeposits">
+          </mat-form-field>
+          <mat-form-field>
+            <input matInput formControlName="outstandingBill">
+          </mat-form-field>
+        <div>
+          <button mat-raised-button mat-button matStepperPrevious>Back</button>
+          <button mat-raised-button mat-button (click)="_customerService.customerForm.reset()" type="button"> Reset</button>
+        </div>
+      </mat-step>
+    </mat-horizontal-stepper>
+</form>
+
