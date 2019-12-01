@@ -6,10 +6,19 @@
 mat-form-field{
   width: 100%;
 }
+.forty-percent{
+  width: 40%;
+}
+.twenty-five-percent{
+  width: 25%;
+}
 
 .mat-radio-button ~ .mat-radio-button {
   margin-left: 16px;
 }
 .m-auto {
   margin: auto !important;
+}
+.button-row button{
+  margin: 10px;
 }
