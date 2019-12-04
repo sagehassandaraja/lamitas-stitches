@@ -18,6 +18,10 @@ import * as Material from '@angular/material';
     Material.MatDatepickerModule,
     Material.MatNativeDateModule,
     Material.MatSnackBarModule,
+    Material.MatListModule,
+    Material.MatTableModule,
+    Material.MatPaginatorModule,
+    Material.MatSortModule
   ],
   exports: [
     Material.MatToolbarModule,
@@ -30,6 +34,10 @@ import * as Material from '@angular/material';
     Material.MatDatepickerModule,
     Material.MatNativeDateModule,
     Material.MatSnackBarModule,
+    Material.MatListModule,
+    Material.MatTableModule,
+    Material.MatPaginatorModule,
+    Material.MatSortModule
   ]
 })
 export class MaterialModule { }

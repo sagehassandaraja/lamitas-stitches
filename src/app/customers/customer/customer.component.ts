@@ -28,7 +28,6 @@ export class CustomerComponent implements OnInit {
       itemAmt: []
     });
     this.matAccessories.push(_accesories);
-    // console.log(_accesories.value);
   }
   deleteAccessories(index) {
     this.matAccessories.removeAt(index);

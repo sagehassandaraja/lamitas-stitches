@@ -8,7 +8,7 @@ import { CustomersComponent } from './customers/customers.component';
 import { CustomerComponent } from './customers/customer/customer.component';
 import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './header/header.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CustomerListComponent } from './customers/customer-list/customer-list.component';
 
 @NgModule({
@@ -24,7 +24,8 @@ import { CustomerListComponent } from './customers/customer-list/customer-list.c
     AppRoutingModule,
     BrowserAnimationsModule,
     MaterialModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

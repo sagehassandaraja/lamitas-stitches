@@ -1,1 +1,55 @@
-<p>customer-list works!</p>
+<div class="search">
+  <button mat-raised-button><mat-icon>add</mat-icon>Create</button>
+  <mat-form-field class="search-form-field" floatLabel="never">
+    <input (keyup)="applyFilter()" matInput (click)="clearSearch()" [(ngModel)]="searchKey" placeholder="Please Enter Search Keyword here" value="value" autocomplete="off">
+    <button ng-ke mat-icon-button matSuffix *ngIf="searchKey"><mat-icon>close</mat-icon></button>
+  </mat-form-field>
+</div>
+
+<div class="mat-elevation-z8">
+  <table mat-table #table [dataSource]="listCustomers" matSort>
+    <ng-container matColumnDef="fullName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Full Name </th>
+      <td mat-cell *matCellDef="let row"> {{ row.name }} </td>
+    </ng-container>
+    <ng-container matColumnDef="location">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Location </th>
+      <td mat-cell *matCellDef="let row"> {{ row.location }} </td>
+    </ng-container>
+    <ng-container matColumnDef="telNo">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Mobile No. </th>
+      <td mat-cell *matCellDef="let row"> {{ row.telNo }} </td>
+    </ng-container>
+    <ng-container matColumnDef="completionDate">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Completion Date </th>
+      <td mat-cell *matCellDef="let row"> {{ row.completionDate }} </td>
+    </ng-container>
+    <ng-container matColumnDef="totalDeposits">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Total Deposit </th>
+      <td mat-cell *matCellDef="let row"> {{ row.bills.totalDeposits }} </td>
+    </ng-container>
+    <ng-container matColumnDef="outstandingBill">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Outstanding Bill </th>
+      <td mat-cell *matCellDef="let row"> {{ row.bills.outstandingBill }} </td>
+    </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <button mat-icon-button><mat-icon>launch</mat-icon></button>
+        <button mat-icon-button color="warn"><mat-icon>delete_outline</mat-icon></button>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="loading">
+      <td mat-footer-cell *matFooterCellDef colspan="2">
+        Please wait for data to load
+      </td>
+    </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="['loading']" [ngClass]="{'hide': listCustomers!=null}"></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons></mat-paginator>
+</div>
+
+
+

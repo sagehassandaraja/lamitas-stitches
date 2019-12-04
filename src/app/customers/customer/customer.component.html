@@ -32,7 +32,7 @@
             <mat-datepicker #endDate ></mat-datepicker>
           </mat-form-field>
         <div>
-          <button mat-raised-button mat-button matStepperNext color="primary" type="button">Next</button>
+          <button mat-raised-button mat-button matStepperNext color="accent" type="button">Next</button>
         </div>
       </mat-step>
       <mat-step formGroupName="description">
@@ -51,21 +51,21 @@
               <mat-form-field>
                <input matInput placeholder="Material Type" formControlName="itemType">
               </mat-form-field>
-              <mat-form-field class="twenty-five-percent">
+              <mat-form-field>
                <input matInput placeholder="Material Quantity" formControlName="itemQty">
               </mat-form-field>
-              <mat-form-field class="twenty-five-percent">
+              <mat-form-field>
                <input matInput placeholder="Material Amount" formControlName="itemAmt">
               </mat-form-field>
             </div>
-            <button mat-raised-button mat-button color="warn" type="button" (click)="deleteAccessories(i)">Add Accessory</button>
+            <button mat-raised-button mat-button color="warn" type="button" (click)="deleteAccessories(i)">Delete Accessory</button>
           </div>
           <div>
            <button mat-raised-button mat-button type="button" (click)="addAccessories()">Add Accessory</button>
           </div>
         <div class="button-row">
-          <button mat-raised-button mat-button matStepperPrevious>Back</button>
-          <button mat-raised-button mat-button matStepperNext color="primary">Next</button>
+          <button mat-stroked-button mat-button color="primary" matStepperPrevious>Back</button>
+          <button mat-raised-button mat-button matStepperNext color="accent">Next</button>
         </div>
       </mat-step>
       <mat-step formGroupName="measurement">
@@ -101,8 +101,8 @@
             <input matInput placeholder="Around Arm size" formControlName="arndArm">
           </mat-form-field>
         <div class="button-row">
-          <button mat-raised-button mat-button matStepperPrevious>Back</button>
-          <button mat-raised-button mat-button matStepperNext color="primary">Next</button>
+          <button mat-stroked-button mat-button color="primary" matStepperPrevious>Back</button>
+          <button mat-raised-button mat-button matStepperNext color="accent">Next</button>
         </div>
       </mat-step>
       <mat-step formGroupName="bills">
@@ -120,8 +120,8 @@
             <input matInput placeholder="Amount to be paid" type="number" formControlName="outstandingBill">
           </mat-form-field>
         <div class="button-row">
-          <button mat-raised-button mat-button matStepperPrevious color="accent">Back</button>
-          <button mat-raised-button mat-button color="primary">Save All</button>
+          <button mat-stroked-button mat-button matStepperPrevious color="primary">Back</button>
+          <button mat-raised-button mat-button color="accent">Save All</button>
           <button mat-raised-button mat-button color="warn" (click)="_customerService.clearForm()" type="button"> Reset</button>
         </div>
       </mat-step>
