@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { DummyDataService } from 'src/app/shared/dummy-data.service';
-import { MatTableDataSource, MatSort, MatPaginator } from '@angular/material';
+import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig } from '@angular/material';
+import { CustomerComponent } from '../customer/customer.component';
 
 @Component({
   selector: 'app-customer-list',
@@ -24,7 +25,7 @@ export class CustomerListComponent implements OnInit {
 
 searchKey:string;
 
-  constructor(private data: DummyDataService) { }
+  constructor(private data: DummyDataService, private _matDialog: MatDialog) { }
 
   ngOnInit() {
     // initialize listCustomers
@@ -49,6 +50,14 @@ searchKey:string;
 
   applyFilter(){
     this.listCustomers.filter = this.searchKey.trim().toLocaleLowerCase();
+  }
+  // mat dialog
+  onCreate(){
+    const _dialogConfig = new MatDialogConfig();
+    _dialogConfig.disableClose = true;
+    _dialogConfig.autoFocus = true;
+    _dialogConfig.width = '60%';
+    this._matDialog.open(CustomerComponent, _dialogConfig)
   }
 
 }

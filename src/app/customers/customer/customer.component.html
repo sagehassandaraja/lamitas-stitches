@@ -1,4 +1,4 @@
-{{ _customerService.customerForm.value | json }}
+<!-- {{ _customerService.customerForm.value | json }} -->
 <form [formGroup]="_customerService.customerForm" class="customer-form  m-auto">
     <mat-horizontal-stepper linear >
       <mat-step>
@@ -122,7 +122,7 @@
         <div class="button-row">
           <button mat-stroked-button mat-button matStepperPrevious color="primary">Back</button>
           <button mat-raised-button mat-button color="accent">Save All</button>
-          <button mat-raised-button mat-button color="warn" (click)="_customerService.clearForm()" type="button"> Reset</button>
+          <button mat-raised-button mat-button color="warn" (click)="clearForm()" type="button"> Reset</button>
         </div>
       </mat-step>
     </mat-horizontal-stepper>

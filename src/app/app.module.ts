@@ -10,6 +10,7 @@ import { MaterialModule } from './material/material.module';
 import { HeaderComponent } from './header/header.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CustomerListComponent } from './customers/customer-list/customer-list.component';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,15 @@ import { CustomerListComponent } from './customers/customer-list/customer-list.c
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  entryComponents: [CustomerComponent],
+  providers: [
+    // {provide: MatDialogRef, useValue: {
+    //   // onCloseDialog
+    //   close: (_matDialogRef: any) => { }
+    // }},
+    // {provide: MAT_DIALOG_DATA, useValue: []}
+],
   bootstrap: [AppComponent]
+
 })
 export class AppModule { }

@@ -1,5 +1,5 @@
 <div class="search">
-  <button mat-raised-button><mat-icon>add</mat-icon>Create</button>
+  <button mat-raised-button (click)="onCreate()"><mat-icon>add</mat-icon>Add New</button>
   <mat-form-field class="search-form-field" floatLabel="never">
     <input (keyup)="applyFilter()" matInput (click)="clearSearch()" [(ngModel)]="searchKey" placeholder="Please Enter Search Keyword here" value="value" autocomplete="off">
     <button ng-ke mat-icon-button matSuffix *ngIf="searchKey"><mat-icon>close</mat-icon></button>

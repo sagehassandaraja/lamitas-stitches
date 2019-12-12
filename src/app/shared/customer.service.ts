@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
 import { NotificationService } from './notification.service';
-
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
   // tslint:disable-next-line:variable-name
-  constructor(private fb: FormBuilder, private _notification: NotificationService) { }
+  constructor(private fb: FormBuilder) { }
 
   customerForm: FormGroup = this.fb.group({
     $key: [''],
@@ -42,11 +41,4 @@ export class CustomerService {
       outstandingBill: ['', {disabled : true}, Validators.required]
     })
   });
-
-
-  clearForm() {
-    this.customerForm.reset();
-    // todo: move below line to the saveAll()
-    this._notification.success('Client Measurement Saved Successfully');
-  }
 }
