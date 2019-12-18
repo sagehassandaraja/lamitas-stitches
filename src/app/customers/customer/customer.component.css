@@ -1,6 +1,6 @@
 .customer-form{
   min-width: 150px;
-  max-width: 500px;
+  /* max-width: 500px; */
   width: 100%;
 }
 mat-form-field{
@@ -21,4 +21,24 @@ mat-form-field{
 }
 .button-row button{
   margin: 10px;
+}
+.btn-dialog-close{
+  width: 45px;
+  min-width: 0px !important;
+  height: 40px;
+  padding: 0px !important;
+}
+
+.xs {
+  margin-right: 15px;
+  width: 15%;
+}
+
+.sm {
+  margin-right: 15px;
+  width: 25%;
+}
+.measure-size{
+  margin-right: 15px;
+  width: 20%;
 }

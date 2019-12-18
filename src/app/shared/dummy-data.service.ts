@@ -11,7 +11,7 @@ export class DummyDataService {
     {
       "$key": 1,
        "name": "Sage Hassan",
-       "gender": 1,
+       "gender": "Male",
        "location": "Ahodwo",
        "telNo": "0209199413",
        "currentDate": "2019-12-16",
@@ -40,8 +40,8 @@ export class DummyDataService {
       },
     {
       "$key": 2,
-       "name": "Amina Hassan",
-       "gender": 2,
+       "name": "Amina",
+       "gender": "Female",
        "location": "Suame",
        "telNo": "0505458456",
        "currentDate": "2019-11-11",
@@ -71,7 +71,7 @@ export class DummyDataService {
     {
       "$key": 3,
        "name": "Bob Marley",
-       "gender": 1,
+       "gender": "Male",
        "location": "Sepe",
        "telNo": "0209199413",
        "currentDate": "2019-12-20",
@@ -101,7 +101,7 @@ export class DummyDataService {
     {
       "$key": 4,
        "name": "Louisa",
-       "gender": 1,
+       "gender": "Female",
        "location": "Tech",
        "telNo": "0209199413",
        "currentDate": "2019-11-20",
@@ -131,7 +131,7 @@ export class DummyDataService {
     {
       "$key": 5,
        "name": "Marley",
-       "gender": 1,
+       "gender": "Male",
        "location": "Accra",
        "telNo": "0209199413",
        "currentDate": "2019-12-20",
@@ -161,9 +161,9 @@ export class DummyDataService {
     {
       "$key": 6,
        "name": "Bob",
-       "gender": 1,
+       "gender": "Male",
        "location": "Sepe",
-       "telNo": "0209199413",
+       "telNo": "0525485421",
        "currentDate": "2019-12-20",
        "completionDate": "2019-12-25",
        "description": {

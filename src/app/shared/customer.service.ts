@@ -1,6 +1,5 @@
 import { Injectable} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
-import { NotificationService } from './notification.service';
 @Injectable({
   providedIn: 'root'
 })
@@ -41,4 +40,8 @@ export class CustomerService {
       outstandingBill: ['', {disabled : true}, Validators.required]
     })
   });
+
+  populateForm(customer){
+    this.customerForm.setValue(customer);
+  }
 }

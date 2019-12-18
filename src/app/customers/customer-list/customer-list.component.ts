@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { DummyDataService } from 'src/app/shared/dummy-data.service';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig } from '@angular/material';
 import { CustomerComponent } from '../customer/customer.component';
+import { CustomerService } from 'src/app/shared/customer.service';
 
 @Component({
   selector: 'app-customer-list',
@@ -20,12 +21,13 @@ export class CustomerListComponent implements OnInit {
 
   // column headers defination
   displayedColumns: string[] = ['fullName','location','telNo',
-  'completionDate','totalDeposits','outstandingBill','actions'
+  'completionDate','totalAmt','totalDeposits','outstandingBill','actions'
 ];
 
 searchKey:string;
 
-  constructor(private data: DummyDataService, private _matDialog: MatDialog) { }
+  constructor(private data: DummyDataService, private _matDialog: MatDialog,
+    private _customerService: CustomerService) { }
 
   ngOnInit() {
     // initialize listCustomers
@@ -40,7 +42,7 @@ searchKey:string;
   }
   // return all customers setup in DummyDataService
   get dummyData() {
-    return this.data.customers;
+    return [...this.data.customers];
   }
 
   clearSearch(){
@@ -58,6 +60,18 @@ searchKey:string;
     _dialogConfig.autoFocus = true;
     _dialogConfig.width = '60%';
     this._matDialog.open(CustomerComponent, _dialogConfig)
+  }
+
+  // to edit a customer
+  editCustomer(row){
+    this._customerService.populateForm(row);
+    this.onCreate();
+  }
+
+  // to delete a customer row
+  deleteCustomer(row){
+    // console.log(this.dummyData.splice(row,1))
+    this.dummyData.splice(row,1);
   }
 
 }
