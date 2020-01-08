@@ -1,4 +1,4 @@
-<!-- {{ _customerService.customerForm.value | json }} -->
+{{ _customerService.customerForm.value | json }}
 <mat-toolbar>
   <span>{{_customerService.customerForm.controls['$key'].value ? "Modify Customer Details" :
     "New Customer"}}</span>
@@ -7,7 +7,7 @@
 </mat-toolbar>
 
 <mat-dialog-content>
-  <form [formGroup]="_customerService.customerForm" class="customer-form m-auto">
+  <form [formGroup]="_customerService.customerForm" (ngSubmit)="saveAll(_customerService.customerForm.value)" class="customer-form m-auto">
     <mat-vertical-stepper linear labelPosition="bottom">
       <!-- stepper for customer biodata -->
       <mat-step>
@@ -16,7 +16,7 @@
           <mat-form-field>
             <input matInput placeholder="Name" formControlName="name" required>
           </mat-form-field>
-          <label style="padding-right: 5px;">Gender</label>
+          <label style="padding-right: 10px;">Gender</label>
           <mat-radio-group aria-label="Select gender" formControlName="gender" >
             <mat-radio-button *ngFor="let sex of gender" [value]="sex">
               {{sex}}
@@ -41,7 +41,7 @@
             <mat-datepicker #endDate ></mat-datepicker>
           </mat-form-field>
         <mat-dialog-actions>
-          <button mat-raised-button mat-button matStepperNext color="accent" type="button">Next</button>
+          <button mat-raised-button matStepperNext color="accent" type="button">Next</button>
         </mat-dialog-actions>
       </mat-step>
       <!-- stepper for customer material details -->
@@ -50,9 +50,10 @@
           <mat-form-field>
             <input matInput placeholder="style description" formControlName="designDescc">
           </mat-form-field>
-          <mat-form-field>
+          <!-- todo: reserve for a later version -->
+          <!-- <mat-form-field>
             <input matInput placeholder="Material Pic" formControlName="matPic">
-          </mat-form-field>
+          </mat-form-field> -->
           <mat-form-field class="twenty-five-percent">
             <input matInput placeholder="Quantity" type="number" formControlName="matQty">
           </mat-form-field>
@@ -78,22 +79,22 @@
            <button mat-raised-button mat-button type="button" (click)="addAccessories()">Add Accessory</button>
           </div>
         <div class="button-row">
-          <button mat-stroked-button mat-button color="primary" matStepperPrevious>Back</button>
-          <button mat-raised-button mat-button matStepperNext color="accent">Next</button>
+          <button mat-stroked-button type="button" color="primary" matStepperPrevious>Back</button>
+          <button mat-raised-button type="button" matStepperNext color="accent">Next</button>
         </div>
       </mat-step>
       <!-- stepper for customer measurement  -->
       <mat-step formGroupName="measurement">
           <ng-template matStepLabel>Fill out Customer Measurement Details(Inchs)</ng-template>
-          <mat-grid-list cols="4" gutterSize="15px" rowHeight="2:1">
+          <mat-grid-list cols="4" gutterSize="15px" rowHeight="3:2">
             <mat-grid-tile>
               <mat-form-field>
-                <input matInput placeholder="Bust" formControlName="bust">
+                <input matInput placeholder="Bust" formControlName="bust" type="number">
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
               <mat-form-field>
-                <input matInput placeholder="Waist" formControlName="waist">
+                <input matInput placeholder="Waist" formControlName="waist" type="number">
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
@@ -103,43 +104,43 @@
             </mat-grid-tile>
             <mat-grid-tile>
               <mat-form-field>
-                <input matInput placeholder="Shoulder" formControlName="shoulder">
+                <input matInput placeholder="Shoulder" formControlName="shoulder" type="number">
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
               <mat-form-field>
-                <input matInput placeholder="Top Length" formControlName="topLength">
+                <input matInput placeholder="Top Length" formControlName="topLength" type="number">
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
               <mat-form-field>
-                <input matInput placeholder="skirt Length" formControlName="skirtLength">
+                <input matInput placeholder="skirt Length" formControlName="skirtLength" type="number">
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
               <mat-form-field>
-                <input matInput placeholder="Sleeve Length" formControlName="sleeveLength">
+                <input matInput placeholder="Sleeve Length" formControlName="sleeveLength" type="number">
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
               <mat-form-field>
-                <input matInput placeholder="Full Length" formControlName="fullLength">
+                <input matInput placeholder="Full Length" formControlName="fullLength" type="number">
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
               <mat-form-field>
-                <input matInput placeholder="thighs" formControlName="thighs">
+                <input matInput placeholder="thighs" formControlName="thighs" type="number">
               </mat-form-field>
             </mat-grid-tile>
             <mat-grid-tile>
               <mat-form-field>
-                <input matInput placeholder="Around Arm" formControlName="arndArm">
+                <input matInput placeholder="Around Arm" formControlName="arndArm" type="number">
               </mat-form-field>
             </mat-grid-tile>
           </mat-grid-list>
         <div class="button-row">
-          <button mat-stroked-button mat-button color="primary" matStepperPrevious>Back</button>
-          <button mat-raised-button mat-button matStepperNext color="accent">Next</button>
+          <button mat-stroked-button type="button" color="primary" matStepperPrevious>Back</button>
+          <button mat-raised-button type="button" matStepperNext color="accent">Next</button>
         </div>
       </mat-step>
       <mat-step formGroupName="bills">
@@ -151,15 +152,15 @@
             <input matInput placeholder="Deposits" type="number" formControlName="deposits">
           </mat-form-field>
           <mat-form-field class="forty-percent">
-            <input matInput placeholder="Total Deposits" type="number" formControlName="totalDeposits">
+            <input matInput placeholder="Total Deposits" type="number" formControlName="totalDeposits" readonly>
           </mat-form-field>
           <mat-form-field class="forty-percent">
-            <input matInput placeholder="Amount to be paid" type="number" formControlName="outstandingBill">
+            <input matInput placeholder="Amount to be paid" type="number" formControlName="outstandingBill" readonly>
           </mat-form-field>
         <div class="button-row">
-          <button mat-stroked-button mat-button matStepperPrevious color="primary">Back</button>
-          <button mat-raised-button mat-button color="accent" (click)="saveAll()">Save All</button>
-          <button mat-raised-button mat-button color="warn" (click)="clearForm()" type="button"> Reset</button>
+          <button mat-stroked-button type="button" matStepperPrevious color="primary">Back</button>
+          <button mat-raised-button color="accent" >Save All</button>
+          <button mat-raised-button color="warn" (click)="clearForm()" type="button"> Reset</button>
         </div>
       </mat-step>
     </mat-vertical-stepper>

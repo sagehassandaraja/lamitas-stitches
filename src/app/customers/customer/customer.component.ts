@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CustomerService } from 'src/app/shared/customer.service';
-import { FormArray, FormBuilder } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { NotificationService } from 'src/app/shared/notification.service';
 import { DummyDataService } from 'src/app/shared/dummy-data.service';
@@ -12,7 +12,7 @@ import { DummyDataService } from 'src/app/shared/dummy-data.service';
 })
 export class CustomerComponent implements OnInit {
   gender = ['Male', 'Female'];
-  submitedForm = this._customerService.customerForm.value;
+  submitedForm = this._customerService.customerForm;
 
   // tslint:disable-next-line:variable-name
   constructor(private _customerService: CustomerService, private fb: FormBuilder,private _dummyData: DummyDataService,
@@ -43,8 +43,10 @@ export class CustomerComponent implements OnInit {
     this._notification.success('Client Measurement Saved Successfully');
     this.onClose();
   }
-  saveAll(){
-    this._dummyData.customers.push(this.submitedForm);
+  saveAll(form: FormGroup){
+    console.log(this.submitedForm.value);
+
+    this._dummyData.customers.push(form.value);
 
   }
 

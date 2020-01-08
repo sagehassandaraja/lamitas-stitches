@@ -10,9 +10,9 @@ export class CustomerService {
   customerForm: FormGroup = this.fb.group({
     $key: [''],
     name: ['', Validators.required],
-    gender: ['', Validators.required],
+    gender: ['Male', Validators.required],
     location: [''],
-    telNo: ['', [Validators.required, Validators.minLength(10), Validators.maxLength(10)]],
+    telNo: ['', Validators.required],
     currentDate: ['', {disabled : true}, Validators.required],
     completionDate: ['', {disabled : true}],
     description: this.fb.group({
