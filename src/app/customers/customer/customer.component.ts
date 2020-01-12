@@ -14,7 +14,6 @@ export class CustomerComponent implements OnInit {
   gender = ['Male', 'Female'];
   submitedForm = this._customerService.customerForm;
 
-  // tslint:disable-next-line:variable-name
   constructor(private _customerService: CustomerService, private fb: FormBuilder,private _dummyData: DummyDataService,
     private _notification: NotificationService, private _matDialogRef: MatDialogRef<CustomerComponent>
     ) {}
@@ -26,7 +25,6 @@ export class CustomerComponent implements OnInit {
     return this._customerService.customerForm.get('description.accesories') as FormArray;
   }
   addAccessories() {
-    // tslint:disable-next-line:variable-name
     const _accesories = this.fb.group({
       itemType: [],
       itemQty: [],
@@ -39,7 +37,7 @@ export class CustomerComponent implements OnInit {
   }
   clearForm() {
     this._customerService.customerForm.reset();
-    // todo: move below line to the saveAll()
+    // todo: move line 41 to the saveAll()
     this._notification.success('Client Measurement Saved Successfully');
     this.onClose();
   }
@@ -51,7 +49,7 @@ export class CustomerComponent implements OnInit {
   }
 
   onClose(){
-    // this._customerService.customerForm.reset();
     this._matDialogRef.close();
+    this._customerService.customerForm.reset();
   }
 }

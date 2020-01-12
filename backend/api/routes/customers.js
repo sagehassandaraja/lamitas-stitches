@@ -3,28 +3,19 @@ const route = express.Router(); //assigning express Router() to route
 const mongoose = require('mongoose');
 
 const Customer = require('../models/customer');
+const CustomerController = require('../controllers/customers');
 
 //GET request to backend/api/customers
-route.get('/',(req , res, next) => {
-  res.status(200).json({
-    message: 'handling GET route request'
-  })
-})
+route.get('/',CustomerController.get_all_customers)
 
 //a single GET request to backend/api/customers
-route.get('/:customerID',(req , res, next) => {
-  const id = req.params.customerID
-  res.status(200).json({
-    Message: 'handling a single GET route request',
-    ID: id
-  })
-})
+route.get('/:customerID', CustomerController.get_single_customer)
 
 //POST request to backend/api/customers
 route.post('/',(req , res, next) => {
 
 //creating an instance of the customer model
-  const customerDetails = new Customer ({
+  const customer = new Customer ({
     name: req.body.name,
       gender: req.body.gender,
       location: req.body.location,
@@ -34,10 +25,8 @@ route.post('/',(req , res, next) => {
       description: {
           designDescc: req.body.description.designDescc,
           matQty: req.body.description.matQty,
-          accesories: [{ itemType: req.body.description.accesories[0].itemType,
-                         itemQty: req.body.description.accesories[0].itemQty,
-                         itemAmt: req.body.description.accesories[0].itemAmt }]
-        },
+          accesories: req.body.description.accesories
+      },
       measurement: {
           bust: req.body.measurement.bust,
           waist: req.body.measurement.waist,
@@ -56,30 +45,55 @@ route.post('/',(req , res, next) => {
           outstandingBill: req.body.bills.outstandingBill }
   });
 
-  customerDetails.save().then(result => {
+  customer.save().then(result => {
     console.log(result);
+    res.status(201).json({
+      message: 'handling POST route request',
+      details: result
+    })
   }).catch(error => {
-    console.log(error);
+    console.log(err);
+    res.status(500).json({
+      error: err
+    })
 
   })
-  res.status(201).json({
-    message: 'handling POST route request',
-    details: customerDetails
-  })
+
 })
 
 //UPDATE/PATCH request to backend/api/customers
 route.patch('/:customerID',(req , res, next) => {
-  res.status(201).json({
-    message: 'handling a single UPDATE/PATCH route request'
+  const id = req.params.customerID
+  const updateObj = {}
+  for (const obj of req.body){
+    updateObj[obj.propName] = obj.value;
+  }
+  Customer.update({_id: id}, {$set: updateObj})
+  .exec()
+  .then(updatedObj => {
+    console.log(updatedObj);
+    res.status(200).json(updatedObj)
+  })
+  .catch(error => {
+    res.status(500).json({
+      error: err
+    })
   })
 })
 
 //DELETE request to backend/api/customers
 route.delete('/:customerID',(req , res, next) => {
   const id = req.params.customerID
-  res.status(200).json({
-    message: 'customer with ID: ' + id + ' has been deleted successfully'
+  Customer.remove({_id: id})
+  .exec()
+  .then(customerToDelete => {
+    console.log(customerToDelete);
+    res.status(200).json(customerToDelete)
+  })
+  .catch(err => {
+    res.status(500).json({
+      error: err
+    })
   })
 })
 

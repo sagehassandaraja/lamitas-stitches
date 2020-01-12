@@ -10,6 +10,15 @@ mongoose.connect(
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
+  },
+  (err) => {
+    if (!err) {
+      console.log('Connection success ');
+
+    } else {
+      console.log('Couldnt connect to DB' + JSON.stringify(err, undefined, 2));
+    }
+
   }
 )
 

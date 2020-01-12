@@ -9,7 +9,7 @@ export class DummyDataService {
 
   customers = [
     {
-      "$key": 1,
+      "_id": 1,
        "name": "Sage Hassan",
        "gender": "Male",
        "location": "Ahodwo",
@@ -39,7 +39,7 @@ export class DummyDataService {
           "outstandingBill": 400 }
       },
     {
-      "$key": 2,
+      "_id": 2,
        "name": "Amina",
        "gender": "Female",
        "location": "Suame",
@@ -69,7 +69,7 @@ export class DummyDataService {
           "outstandingBill": 500 }
       },
     {
-      "$key": 3,
+      "_id": 3,
        "name": "Bob Marley",
        "gender": "Male",
        "location": "Sepe",
@@ -99,7 +99,7 @@ export class DummyDataService {
           "outstandingBill": 400 }
       },
     {
-      "$key": 4,
+      "_id": 4,
        "name": "Louisa",
        "gender": "Female",
        "location": "Tech",
@@ -129,7 +129,7 @@ export class DummyDataService {
           "outstandingBill": 400 }
       },
     {
-      "$key": 5,
+      "_id": 5,
        "name": "Marley",
        "gender": "Male",
        "location": "Accra",
@@ -159,7 +159,7 @@ export class DummyDataService {
           "outstandingBill": 100 }
       },
     {
-      "$key": 6,
+      "_id": 6,
        "name": "Bob",
        "gender": "Male",
        "location": "Sepe",

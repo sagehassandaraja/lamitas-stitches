@@ -1,6 +1,6 @@
-{{ _customerService.customerForm.value | json }}
+<!-- {{ _customerService.customerForm.value | json }} -->
 <mat-toolbar>
-  <span>{{_customerService.customerForm.controls['$key'].value ? "Modify Customer Details" :
+  <span>{{_customerService.customerForm.controls['_id'].value ? "Modify Customer Details" :
     "New Customer"}}</span>
     <span style="flex: 1 1 auto;"></span>
   <button tabindex="-1" class="btn-dialog-close" mat-stroked-button (click)="onClose()"><mat-icon>clear</mat-icon></button>
@@ -8,11 +8,11 @@
 
 <mat-dialog-content>
   <form [formGroup]="_customerService.customerForm" (ngSubmit)="saveAll(_customerService.customerForm.value)" class="customer-form m-auto">
-    <mat-vertical-stepper linear labelPosition="bottom">
+    <mat-horizontal-stepper linear labelPosition="bottom">
       <!-- stepper for customer biodata -->
       <mat-step>
-          <ng-template matStepLabel>Fill out Customer Biodata</ng-template>
-          <input formControlName="$key" type="hidden">
+          <ng-template matStepLabel>Biodata</ng-template>
+          <input formControlName="_id" type="hidden">
           <mat-form-field>
             <input matInput placeholder="Name" formControlName="name" required>
           </mat-form-field>
@@ -46,7 +46,7 @@
       </mat-step>
       <!-- stepper for customer material details -->
       <mat-step formGroupName="description">
-          <ng-template matStepLabel>Fill out Customer Material Description</ng-template>
+          <ng-template matStepLabel>Material Description</ng-template>
           <mat-form-field>
             <input matInput placeholder="style description" formControlName="designDescc">
           </mat-form-field>
@@ -85,7 +85,7 @@
       </mat-step>
       <!-- stepper for customer measurement  -->
       <mat-step formGroupName="measurement">
-          <ng-template matStepLabel>Fill out Customer Measurement Details(Inchs)</ng-template>
+          <ng-template matStepLabel>Measurement(Inchs)</ng-template>
           <mat-grid-list cols="4" gutterSize="15px" rowHeight="3:2">
             <mat-grid-tile>
               <mat-form-field>
@@ -143,8 +143,9 @@
           <button mat-raised-button type="button" matStepperNext color="accent">Next</button>
         </div>
       </mat-step>
+      <!-- bills -->
       <mat-step formGroupName="bills">
-          <ng-template matStepLabel labelPosition="bottom">Fill out Customer Bills Detail</ng-template>
+          <ng-template matStepLabel labelPosition="bottom">Bills </ng-template>
           <mat-form-field class="forty-percent">
             <input matInput placeholder="Total Cost" type="number" formControlName="totalAmt">
           </mat-form-field>
@@ -163,7 +164,7 @@
           <button mat-raised-button color="warn" (click)="clearForm()" type="button"> Reset</button>
         </div>
       </mat-step>
-    </mat-vertical-stepper>
+    </mat-horizontal-stepper>
 </form>
 </mat-dialog-content>
 

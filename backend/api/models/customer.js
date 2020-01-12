@@ -6,13 +6,13 @@ const customerSchema = mongoose.Schema(
       name: {type: String, require: true},
       gender: String,
       location: String,
-      telNo: Number,
+      telNo: String,
       currentDate: { type: Date, default: Date.now },
       completionDate: Date,
       description: {
           designDescc: String,
           matQty: Number,
-          accesories: [{ itemType: String, itemQty: Number, itemAmt: Number }]
+          accesories: Array
         },
       measurement: {
           bust: Number,

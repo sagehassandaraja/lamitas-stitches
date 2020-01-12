@@ -4,11 +4,10 @@ import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
   providedIn: 'root'
 })
 export class CustomerService {
-  // tslint:disable-next-line:variable-name
   constructor(private fb: FormBuilder) { }
 
   customerForm: FormGroup = this.fb.group({
-    $key: [''],
+    _id: [''],
     name: ['', Validators.required],
     gender: ['Male', Validators.required],
     location: [''],
