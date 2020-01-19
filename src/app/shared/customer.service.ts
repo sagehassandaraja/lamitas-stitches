@@ -1,10 +1,15 @@
 import { Injectable} from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
+import { Customer } from './customer.model';
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerService {
-  constructor(private fb: FormBuilder) { }
+  // selectedCustomer: Customer;
+  customers: Customer[];
+  readonly baseUrl = 'http://localhost:3000/customers';
+  constructor(private fb: FormBuilder, private httpClient: HttpClient) { }
 
   customerForm: FormGroup = this.fb.group({
     _id: [''],
@@ -42,5 +47,13 @@ export class CustomerService {
 
   populateForm(customer){
     this.customerForm.setValue(customer);
+  }
+
+  getCustomers(){
+    return this.httpClient.get<Customer[]>(this.baseUrl)
+  }
+
+  saveCustomer(_customer: Customer){
+    return this.httpClient.post(this.baseUrl, _customer);
   }
 }

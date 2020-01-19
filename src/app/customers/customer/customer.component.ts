@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef } from '@angular/material';
 import { NotificationService } from 'src/app/shared/notification.service';
 import { DummyDataService } from 'src/app/shared/dummy-data.service';
+import { Customer } from '../../shared/customer.model';
 
 @Component({
   selector: 'app-customer',
@@ -37,19 +38,21 @@ export class CustomerComponent implements OnInit {
   }
   clearForm() {
     this._customerService.customerForm.reset();
-    // todo: move line 41 to the saveAll()
-    this._notification.success('Client Measurement Saved Successfully');
-    this.onClose();
+
   }
-  saveAll(form: FormGroup){
-    console.log(this.submitedForm.value);
-
-    this._dummyData.customers.push(form.value);
-
+  saveAll(submitedForm: Customer){
+    this._customerService.saveCustomer(submitedForm).subscribe(
+      res => {
+        this._notification.success('Client Measurement Saved Successfully');
+        this.onClose();
+    // console.log(submitedForm)
+      }
+    )
+    // console.log(submitedForm)
   }
 
   onClose(){
     this._matDialogRef.close();
-    this._customerService.customerForm.reset();
+    this.clearForm();
   }
 }

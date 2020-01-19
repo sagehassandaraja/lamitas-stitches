@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { map } from 'rxjs/operators';
 import { DummyDataService } from 'src/app/shared/dummy-data.service';
 import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig } from '@angular/material';
 import { CustomerComponent } from '../customer/customer.component';
 import { CustomerService } from 'src/app/shared/customer.service';
+import { Customer } from 'src/app/shared/customer.model';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-customer-list',
@@ -10,6 +13,7 @@ import { CustomerService } from 'src/app/shared/customer.service';
   styleUrls: ['./customer-list.component.css']
 })
 export class CustomerListComponent implements OnInit {
+  datasource: Customer[];
 // for sorting
   @ViewChild (MatSort, {static: true}) _sort: MatSort;
 
@@ -17,7 +21,7 @@ export class CustomerListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) _paginator: MatPaginator;
 
   // declare listCustomers as MatTableDataSource
-  listCustomers: MatTableDataSource<any>
+  listCustomers: MatTableDataSource<Customer>
 
   // column headers defination
   displayedColumns: string[] = ['fullName','location','telNo',
@@ -27,11 +31,20 @@ export class CustomerListComponent implements OnInit {
 searchKey:string;
 
   constructor(private data: DummyDataService, private _matDialog: MatDialog,
-    private _customerService: CustomerService) { }
+    private _customerService: CustomerService) {
+
+    }
 
   ngOnInit() {
+    // for testing only
+    this.getAllCustomers();
+
     // initialize listCustomers
-    this.listCustomers = new  MatTableDataSource(this.dummyData)
+    // this.listCustomers = new  MatTableDataSource(Observable<this.getAllCustomers<>)
+    this.listCustomers = new  MatTableDataSource(this.datasource)
+    // this.listCustomers = new  MatTableDataSource(this.dummyData)
+    console.log('customers :' + this.datasource);
+    // console.log('dummyData :' + this.dummyData);
 
     // configure for sorting
     this.listCustomers.sort = this._sort;
@@ -41,8 +54,26 @@ searchKey:string;
 
   }
   // return all customers setup in DummyDataService
-  get dummyData() {
-    return [...this.data.customers];
+  // comment below code in production
+  get dummyData(){
+    return this.data.customers
+  }
+
+  getAllCustomers() {
+    this._customerService.getCustomers()
+    // .pipe(map(res => {
+    //   const customerArray = []
+    //   for (const key in res) {
+    //     if (res.hasOwnProperty(key)) {
+    //       customerArray.push({...res[key], _id: key})
+    //     }
+    //   }
+    //   return customerArray
+    // }))
+    .subscribe(res => {
+      this.datasource = res
+      console.log(this.datasource);
+    });
   }
 
   clearSearch(){
@@ -71,7 +102,7 @@ searchKey:string;
   // to delete a customer row
   deleteCustomer(row){
     // console.log(this.dummyData.splice(row,1))
-    this.dummyData.splice(row,1);
+    // this.dummyData.splice(row,1);
   }
 
 }

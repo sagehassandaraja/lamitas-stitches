@@ -11,6 +11,7 @@ import { HeaderComponent } from './header/header.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CustomerListComponent } from './customers/customer-list/customer-list.component';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
     BrowserAnimationsModule,
     MaterialModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
   entryComponents: [CustomerComponent],
   providers: [
