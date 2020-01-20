@@ -13,7 +13,8 @@ import { Observable } from 'rxjs';
   styleUrls: ['./customer-list.component.css']
 })
 export class CustomerListComponent implements OnInit {
-  // for sorting
+  datasource: Customer[];
+// for sorting
   @ViewChild (MatSort, {static: true}) _sort: MatSort;
 
   // for pagination
@@ -28,25 +29,28 @@ export class CustomerListComponent implements OnInit {
 ];
 
 searchKey:string;
-datasource: any = [];
 
   constructor(private data: DummyDataService, private _matDialog: MatDialog,
     private _customerService: CustomerService) {
-      this._customerService.getCustomers()
-    .subscribe(res => {
-      this.datasource = res
-      // initialize listCustomers
-      this.listCustomers = new  MatTableDataSource<Customer>(this.datasource)
-       // configure for sorting
+
+    }
+
+  ngOnInit() {
+    // for testing only
+    this.getAllCustomers();
+
+    // initialize listCustomers
+    // this.listCustomers = new  MatTableDataSource(Observable<this.getAllCustomers<>)
+    this.listCustomers = new  MatTableDataSource(this.datasource)
+    // this.listCustomers = new  MatTableDataSource(this.dummyData)
+    console.log('customers :' + this.datasource);
+    // console.log('dummyData :' + this.dummyData);
+
+    // configure for sorting
     this.listCustomers.sort = this._sort;
 
     // configure for pagination
     this.listCustomers.paginator = this._paginator;
-      console.log(this.datasource);
-    });
-    }
-
-  ngOnInit() {
 
   }
   // return all customers setup in DummyDataService
@@ -54,6 +58,24 @@ datasource: any = [];
   get dummyData(){
     return this.data.customers
   }
+
+  getAllCustomers() {
+    this._customerService.getCustomers()
+    // .pipe(map(res => {
+    //   const customerArray = []
+    //   for (const key in res) {
+    //     if (res.hasOwnProperty(key)) {
+    //       customerArray.push({...res[key], _id: key})
+    //     }
+    //   }
+    //   return customerArray
+    // }))
+    .subscribe(res => {
+      this.datasource = res
+      console.log(this.datasource);
+    });
+  }
+
   clearSearch(){
     this.searchKey = "";
     this.applyFilter();
