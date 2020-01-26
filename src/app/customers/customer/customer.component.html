@@ -160,7 +160,7 @@
           </mat-form-field>
         <div class="button-row">
           <button mat-stroked-button type="button" matStepperPrevious color="primary">Back</button>
-          <button mat-raised-button color="accent" >Save All</button>
+          <button mat-raised-button color="accent" [disabled]="_customerService.customerForm.invalid">Save All</button>
           <button mat-raised-button color="warn" (click)="clearForm()" type="button"> Reset</button>
         </div>
       </mat-step>

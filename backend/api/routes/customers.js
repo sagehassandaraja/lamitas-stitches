@@ -1,6 +1,6 @@
 const express = require('express'); //import express to get access to its methods
 const route = express.Router(); //assigning express Router() to route
-const mongoose = require('mongoose');
+const bodyParser = require('body-parser');
 
 const Customer = require('../models/customer');
 const CustomerController = require('../controllers/customers');
@@ -8,7 +8,7 @@ const CustomerController = require('../controllers/customers');
 //GET request to backend/api/customers
 route.get('/',CustomerController.get_all_customers)
 
-//a single GET request to backend/api/customers
+//a single GET request to backend/api/customers/id
 route.get('/:customerID', CustomerController.get_single_customer)
 
 //POST request to backend/api/customers
@@ -61,14 +61,29 @@ route.post('/',(req , res, next) => {
 
 })
 
-//UPDATE/PATCH request to backend/api/customers
+
+//UPDATE/PATCH request to backend/api/customers/id
+// route('/:customerID').put((req , res) => {
+//   // const id = req.params.customerID
+//   Customer.findByIdAndUpdate(req.params.customerID, {
+//     $set: req.body
+//   }, (error, data) => {
+//           if (error) {
+//             res.status(500).json({
+//                     error: err})
+//           } else {
+//             res.json(data)
+//             console.log('Student successfully updated!')
+//           }
+//         })
+// })
 route.patch('/:customerID',(req , res, next) => {
   const id = req.params.customerID
-  const updateObj = {}
-  for (const obj of req.body){
-    updateObj[obj.propName] = obj.value;
-  }
-  Customer.update({_id: id}, {$set: updateObj})
+  // const updateObj = {}
+  // for (const obj of req.body){
+  //   // updateObj[obj.propName] = obj.value;
+  // }
+  Customer.updateOne({_id: id}, {$set: req.body})
   .exec()
   .then(updatedObj => {
     console.log(updatedObj);
@@ -76,7 +91,7 @@ route.patch('/:customerID',(req , res, next) => {
   })
   .catch(error => {
     res.status(500).json({
-      error: err
+      err: error
     })
   })
 })
@@ -84,7 +99,7 @@ route.patch('/:customerID',(req , res, next) => {
 //DELETE request to backend/api/customers
 route.delete('/:customerID',(req , res, next) => {
   const id = req.params.customerID
-  Customer.remove({_id: id})
+  Customer.deleteOne({_id: id})
   .exec()
   .then(customerToDelete => {
     console.log(customerToDelete);

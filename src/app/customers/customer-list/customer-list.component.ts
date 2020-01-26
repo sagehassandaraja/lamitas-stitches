@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { DummyDataService } from 'src/app/shared/dummy-data.service';
-import { MatTableDataSource, MatSort, MatPaginator, MatDialog, MatDialogConfig } from '@angular/material';
+import { MatDialog, MatDialogConfig } from '@angular/material';
 import { CustomerComponent } from '../customer/customer.component';
 import { CustomerService } from 'src/app/shared/customer.service';
 import { Customer } from 'src/app/shared/customer.model';
@@ -11,16 +11,6 @@ import { Customer } from 'src/app/shared/customer.model';
   styleUrls: ['./customer-list.component.css']
 })
 export class CustomerListComponent implements OnInit {
-  datasource: Customer[];
-// for sorting
-  @ViewChild (MatSort, {static: true}) _sort: MatSort;
-
-  // for pagination
-  @ViewChild(MatPaginator, {static: true}) _paginator: MatPaginator;
-
-  // declare listCustomers as MatTableDataSource
-  listCustomers: MatTableDataSource<Customer>
-
   // column headers defination
   displayedColumns: string[] = ['fullName','location','telNo',
   'completionDate','totalAmt','totalDeposits','outstandingBill','actions'
@@ -29,23 +19,11 @@ export class CustomerListComponent implements OnInit {
 searchKey:string;
 
   constructor(private data: DummyDataService, private _matDialog: MatDialog,
-    private _customerService: CustomerService) {
-
-      this._customerService.getCustomers()
-      .subscribe(res => {
-        this.datasource = res
-        // initialize listCustomers
-        this.listCustomers = new  MatTableDataSource(this.datasource)
-        // configure for sorting
-        this.listCustomers.sort = this._sort;
-
-        // configure for pagination
-        this.listCustomers.paginator = this._paginator;
-        console.log(this.datasource);
-      });
-    }
+    private _customerService: CustomerService) {}
 
   ngOnInit() {
+    // this._customerService.customerForm
+    this._customerService.getAllCustomers();
   }
 
   clearSearch(){
@@ -54,7 +32,7 @@ searchKey:string;
   }
 
   applyFilter(){
-    this.listCustomers.filter = this.searchKey.trim().toLocaleLowerCase();
+    this._customerService.listCustomers.filter = this.searchKey.trim().toLocaleLowerCase();
   }
   // mat dialog
   onCreate(){
@@ -66,15 +44,17 @@ searchKey:string;
   }
 
   // to edit a customer
-  editCustomer(row){
+  editCustomer(row: Customer){
     this._customerService.populateForm(row);
     this.onCreate();
   }
 
   // to delete a customer row
-  deleteCustomer(row){
-    // console.log(this.dummyData.splice(row,1))
-    // this.dummyData.splice(row,1);
+  deleteCustomer(row: Customer){
+    this._customerService.deleteCustomer(row)
+    .subscribe(res => {
+      this._customerService.getAllCustomers()
+    })
   }
 
 }

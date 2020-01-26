@@ -41,14 +41,25 @@ export class CustomerComponent implements OnInit {
 
   }
   saveAll(submitedForm: Customer){
-    this._customerService.saveCustomer(submitedForm).subscribe(
-      res => {
-        this._notification.success('Client Measurement Saved Successfully');
-        this.onClose();
-    // console.log(submitedForm)
+    if (this._customerService.customerForm.valid) {
+      if (!this._customerService.customerForm.get('_id').value) {
+        this._customerService.saveCustomer(submitedForm).subscribe(
+          res => {
+            this._customerService.getAllCustomers()
+            this._notification.success('Client Measurement Saved Successfully');
+            this.onClose();
+          }
+        )
+
+      } else {
+        this._customerService.updateCustomer(submitedForm)
+        .subscribe(res => {
+          this._customerService.getAllCustomers()
+          this._notification.success('Client Measurement Updated Successfully');
+            this.onClose();
+        })
       }
-    )
-    // console.log(submitedForm)
+    }
   }
 
   onClose(){
